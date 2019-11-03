@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Notification Test</title>
+	</head>
+<body>
+	<h1>Notification Test</h1>
+	<p>Please allow notifications. If you are not prompted to do so, try refreshing or submit an issue.</p>
+	<pre id="error-log"></pre>
+	<button id="notif-button">Give me a cool notification!</button>
+	<script>
+		var notifButton = document.getElementById("notif-button");
+		var errorLog = document.getElementById("error-log");
+		
+		window.addEventListener("load", function() {
+			Notification.requestPermission(function(status) {
+				if (Notification.permission !== status) {
+					Notification.permission = status;
+				}
+			});
+		});
+		/*Notification.requestPermission().then(function(result) {
+			console.log(result);
+		});*/
+		notifButton.addEventListener("click", function() {
+			if (window.Notification && Notification.permission === "granted") {
+				console.log("notif sent");
+				var firstNotify = new Notification("Hello"); //, {body: "text", icon: "url"}
+			} else if (window.Notification && Notification.permission !== "denied") {
+				console.log(Notification.permission);
+				var notifier = new Notification("Hi there!");
+				// For some reason, Notification.permission always is "default"
+				// Giving up on operation...
+			} else {
+				errorLog.innerHTML += "Notification permission is denied.";
+			}
+		});
+	</script>
+</body>
+</html>
