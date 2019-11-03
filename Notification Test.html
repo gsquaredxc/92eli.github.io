@@ -26,11 +26,11 @@
 		});*/
 		notifButton.addEventListener("click", function() {
 			if (window.Notification && Notification.permission === "granted") {
-				var firstNotify = new Notification("Hello"); //, {body: "text", icon: "url"}
+				var firstNotify = new Notification("Hello", {body:"Yay! Notification priveldges are allowed!"}); //, {body: "text", icon: "url"}
 			} else if (window.Notification && Notification.permission !== "denied") {
 				errorLog.innerHTML += "\nWe don't have a notification preference set or this file is being accessed locally.";
 				Notification.requestPermission();
-				var notifier = new Notification("Hi there!");
+				errorLog.innerHTML += "\n  Accept the prompt to allow notifications and click again.";
 				// For some reason, Notification.permission always is "default" when used locally on disk.
 			} else {
 				errorLog.innerHTML += "\nNotification permission is denied.";
