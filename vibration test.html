@@ -10,9 +10,12 @@
 	<button id="stop">STOP ALL VIBRATIONS</button>
 	
 	<script>
-		window.navigator.vibrate(200);
 		var button = document.querySelector("#clickme");
 		var stopButton = document.querySelector("#stop");
+		
+		window.addEventListener("load", function() {
+			window.navigator.vibrate(600);
+		});
 		button.addEventListener("click", function() {
 			console.log("Button press confirmed.");
 			navigator.vibrate([50, 100, 50, 100, 400]);
