@@ -1,0 +1,83 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>JS Warmup</title>
+</head>
+<body>
+	<div style="padding: 3px; width: 20em; border: 2px solid black;">
+    <h1>JS warmup</h1>
+    <h4>Hover over an element to get selector information about it.</h4>
+	<p><em>Now, open your consoles!</em></p>
+	</div>
+    <p id="changeo">Change this text to blue.</p>
+	<ul>
+		<li class="a-list">Make</li>
+		<li class="a-list">all</li>
+		<li class="a-list">of</li>
+		<li class="a-list">these</li>
+		<li class="a-list">backgrounds</li>
+		<li class="a-list">yellow.</li>
+		<li>Except this one.</li>
+	</ul>
+	<div id="wrapper1">
+		<p>Make this p tag inside a div tag say your name.</p>
+	</div>
+	<p id="soon-to-go">Delete me!</p>
+	<p>It'd be cool if this span counted up each time you clicked it: <span id="counter">0</span></p>
+	<p>The <strong>strong</strong> tags should have a <strong>box</strong> <strong>around</strong> them, too.</p>
+	<p id="animate-me">Animate this to flash in and out. (Hint:getAnimationFrame)</p>
+    
+    <script>
+        var text1 = document.getElementById("changeo");
+		var list1 = document.getElementsByClassName("a-list");
+		var cssSelect1 = document.querySelector("div#wrapper1 p");
+		var text2 = document.getElementById("counter");
+		var text3 = document.getElementById("animate-me");
+		var text4 = document.getElementById("soon-to-go");
+        var popup;
+        
+        var newHover = function(ev, element, typeRequested) {
+            var hoverBlock = document.createElement("div");
+            hoverBlock.style.width = "100px";
+			if (typeRequested === "id") {
+				var idText = document.createTextNode("id:"+element.id);
+			} else if (typeRequested === "class") {
+				var idText = document.createTextNode("class:"+element.className);
+			} else {
+				// custom tag
+				var idText = document.createTextNode(typeRequested);
+				hoverBlock.style.width = typeRequested.length*8+"px"; //extra wide for custom text
+			}
+            //style it up!
+            hoverBlock.style.backgroundColor = "rgb(85, 85, 85)";
+            hoverBlock.style.color = "white";
+            hoverBlock.style.textAlign = "center";
+            hoverBlock.style.position = "absolute";
+            hoverBlock.style.left = ev.clientX-45+"px";
+            hoverBlock.style.top = ev.clientY+10+"px";
+            hoverBlock.appendChild(idText);
+            document.body.appendChild(hoverBlock);
+            popup = hoverBlock;
+            //console.log("Created element.");
+        };
+        var moveHover = function(ev, element) {
+            popup.style.left = ev.clientX-45+"px";
+            popup.style.top = ev.clientY+10+"px";
+            //console.log("Moved element.");
+        };
+		var createHoverIdListeners = function(element, typeRequested) {
+			element.addEventListener("mouseenter", function(ev) {newHover(ev, element, typeRequested);});
+			element.addEventListener("mousemove", function(ev) {moveHover(ev, element);});
+			element.addEventListener("mouseleave", function() {document.body.removeChild(popup);});
+		}; // at last!
+        
+		createHoverIdListeners(text1, "id");
+        for (var i = 0; i < list1.length; i++) { // for class need list
+			createHoverIdListeners(list1[i], "class");
+		}
+		createHoverIdListeners(cssSelect1, "<div id=\"wrapper1\"><p></p></div>"); // don't forget to escape your quotes!
+		createHoverIdListeners(text2, "id");
+		createHoverIdListeners(text3, "id");
+		createHoverIdListeners(text4, "id");
+    </script>
+</body>
