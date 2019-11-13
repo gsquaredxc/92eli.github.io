@@ -3,11 +3,43 @@
 <head>
 	<meta charset="utf-8">
 	<title>Test</title>
+	<style>
+		#test-description {
+			position: absolute;
+			top: 50px;
+			right: 50px;
+			width: 200px;
+			border: 5px double #75FFB5;
+			padding: 5px;
+		}
+	</style>
 </head>
 <body>
-	<h1>Is your phone vibrating?</h1>
-	<button id="clickme">Press here to vibrate a pattern</button>
-	<button id="stop">STOP ALL VIBRATIONS</button>
+	<header>
+		<ul id="navigator">
+			<li><a href="" id="current-page">Home</a></li>
+			<li class="dropdown-holder"><a href="">HTML Tests</a>
+				<div class="dropdown-content">
+					<a href="">Test1</a>
+					<a href="">Test2</a>
+				</div></li>
+			<li><a href="">Contact Me</a></li>
+			<li><a href="">JS Warm-up</a></li>
+		</ul>
+	</header>
+	<br><br><br><!-- header position is FIXED so have to have 3 breaks -->
+	<div id="body-text">
+		<h1>Is your phone vibrating?</h1>
+		<button id="clickme">Press here to vibrate a pattern</button>
+		<button id="stop">STOP ALL VIBRATIONS</button>
+		<p id="test-description">This test will work on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/vibrate#Browser_compatibility" target="_blank" rel="noopener">most browsers</a>, other than Safari for IOS and a few others. This simple uses a button to call navigator.vibrate([arr]) in a patter with navigator.vibrate(0) to stop it.</p>
+	</div>
+	<footer>
+		<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
+		<p>Be the reason someone smiles today.</p>
+		<p>Last updated 11/12/19 (in theory) • Have patience, rennovation of this site in progress</p>
+		<p><a href="#">Back to top</a></p>
+	</footer>
 	
 	<script>
 		var button = document.querySelector("#clickme");
