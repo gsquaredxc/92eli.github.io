@@ -3,13 +3,36 @@
 <head>
 	<meta charset="utf-8">
 	<title>Notification Test</title>
+	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
 	</head>
 <body>
-	<h1>Notification Test</h1>
-	<p>Please allow notifications. If you are not prompted to do so, try refreshing the page.</p>
-	<button id="notif-button">Give me a cool notification!</button>
-	
-	<pre id="error-log"></pre>
+	<header>
+		<ul id="navigator">
+		<li><a href="" id="current-page">Home</a></li>
+		<li class="dropdown-holder"><a href="">HTML Tests</a>
+		  <div class="dropdown-content">
+		    <a href="Notification Test.html">Notification Test</a>
+		    <a href="vibration test.html">Vibration Test</a>
+		  </div></li>
+		<li><a href="contact-me.html">Contact Me</a></li>
+		<li><a href="JS-warmup.html">JS Warm-up</a></li>
+	      </ul>
+    	</header>
+    	<br><br><br><!-- header position is FIXED so have to have 3 breaks - contact me if you have a better way to do this -->
+    	<div id="body-text">
+		<h1>Notification Test</h1>
+		<p>Please allow notifications. If you are not prompted to do so, try refreshing the page.</p>
+		<button id="notif-button">Give me a cool notification!</button>
+
+		<pre id="error-log"></pre>
+	</div>
+    
+  	<footer>
+	  	<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
+		  <p>Be the reason someone smiles today.</p>
+  		<p>Last updated 11/12/19 (in theory) • Have patience, rennovation of this site in progress</p>
+	  	<p><a href="#">Back to top</a></p>
+  	</footer>
 	<script>
 		// For more: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
 		var notifButton = document.getElementById("notif-button");
