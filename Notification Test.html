@@ -4,11 +4,21 @@
 	<meta charset="utf-8">
 	<title>Notification Test</title>
 	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
+	<style>
+		#test-description {
+			position: absolute;
+			top: 75px;
+			right: 50px;
+			width: 250px;
+			border: 5px double #75FFB5;
+			padding: 5px;
+		}
+	</style>
 	</head>
 <body>
 	<header>
 		<ul id="navigator">
-		<li><a href="">Home</a></li>
+		<li><a href="index.html">Home</a></li>
 		<li class="dropdown-holder" id="current-page"><a href="">HTML Tests</a>
 		  <div class="dropdown-content">
 		    <a href="Notification Test.html">Notification Test</a>
@@ -25,6 +35,7 @@
 		<button id="notif-button">Give me a cool notification!</button>
 
 		<pre id="error-log"></pre>
+		<p id="test-description">This test first requests permissions to send notifications on page load. Then once you click the button, a notification is sent to the user. Any errors are outputted below the button. Check out the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API">MDN article</a> on notifications. Note: Notifications cannot be sent from local files, so if you download this webpage the notifications probably won't send.</p>
 	</div>
     
   	<footer>
