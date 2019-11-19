@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cookie Test</title>
+</head>
+<body>
+	<h1>Cookie Test<image width="50px" style="display:inline-block; margin: 0 0 0 10px;" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/2ChocolateChipCookies.jpg" alt="A cookie" title="My mom said to put a cookie here"></image></h1>
+	<button onclick="setPlainCookie()">Set cookie</button>
+	<button onclick="setFudgeCookie()">Set cookie to expire in 1 minute</button>
+	<br><br>
+	<button onclick="eatCookie()">Remove cookie</button>
+	<br><br>
+	<button onclick="console.log(document.cookie)">Read me my cookies</button>
+	
+	<script>
+		function setPlainCookie() {
+			document.cookie = "text=Mmm; sameSite=strict; path=/";
+			console.log("Plain cookie [text=Mmm] set.");
+		}
+		function setFudgeCookie() {
+			var currDate = Date.now();
+			var minuteDate = currDate+1000; // add 1000 ms or 1 min
+			console.log("It is "+currDate+". Cookie will be eaten at "+minuteDate+".");
+			document.cookie = "message=Hope your day is sweet!; sameSite=strict; expires="+minuteDate+"; path=/";
+			console.log("Fudge cookie [message=Hope your day is sweet!] expires in 1 minute.");
+		}
+		function eatCookie() {
+			document.cookie = "expires=0; sameSite=strict; path=/"; // will expire when the browsing session ends-- no reoopening closed tab!
+			console.log("Cookie will expire when the browsing session ends.");
+		}
+		function getCookie(name) {
+			var identifier = name+"=";
+			var cookys = document.cookie.split(";");
+			for (var i = 0; i < cookys.length; i++) {
+				var cChar = cookys[i];
+				console.log(i+" i:cChar "+cChar);
+				while (cChar.charAt(0)===" ") cChar = cChar.substring(1); // removes whitespace at beginning
+				if (cChar.indexOf(identifier) != -1) // if there IS the cookie name in there
+					return cChar.substring(identifier.length,cChar.length);
+			}
+			return null;
+		}
+		
+		// intro notice
+		window.addEventListener("load",function(){console.log("Sorry, you might have gotten a console error from the site I took the image of the cookie from.");});
+	</script>
+</body>
+</html>
