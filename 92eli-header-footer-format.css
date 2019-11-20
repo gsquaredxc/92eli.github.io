@@ -28,6 +28,9 @@ body {
 #current-page {
 	background-color: #CC49A2;
 }
+#navigator li #current-page:hover { /* Have to be more specific that the #navigator li a:hover rule */
+	animation: purplepink 0.5s ease-in-out forwards;
+}
 /* https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_navbar */
 .dropdown-content {
 	display: none;
@@ -61,7 +64,7 @@ footer {
 	font-family: sans-serif;
 }
 footer p { margin: 15px; }
-footer a { color: #F7F7F7}
+footer a { color: #F7F7F7; }
 
 #body-text {
 	margin: 8px;
@@ -71,6 +74,10 @@ footer a { color: #F7F7F7}
 
 @keyframes graypink {
 	from {background-color: #849899;}
+	to {background-color: #FFB5C2;}
+}
+@keyframes purplepink {
+	from {background-color: #CC49A2;}
 	to {background-color: #FFB5C2;}
 }
 @keyframes bluepink {
