@@ -43,7 +43,7 @@
 			var cookys = document.cookie.split(";");
 			for (var i = 0; i < cookys.length; i++) {
 				var cChar = cookys[i];
-				console.log(i+" i:cChar "+cChar);
+				//console.log(i+" i:cChar "+cChar);
 				while (cChar.charAt(0)===" ") cChar = cChar.substring(1); // removes whitespace at beginning
 				if (cChar.indexOf(identifier) != -1) // if there IS the cookie name in there
 					return cChar.substring(identifier.length,cChar.length);
