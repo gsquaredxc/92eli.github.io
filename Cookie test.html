@@ -6,12 +6,13 @@
 </head>
 <body>
 	<h1>Cookie Test<image width="50px" style="display:inline-block; margin: 0 0 0 10px;" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/2ChocolateChipCookies.jpg" alt="A cookie" title="My mom said to put a cookie here"></image></h1>
-	<button onclick="setPlainCookie()">Set cookie</button>
+	<button onclick="setPlainCookie()">Set cookie1</button>
 	<button onclick="setFudgeCookie()">Set cookie to expire in 1 minute</button>
 	<input id="cookie-jar" type="text">
 	<button onclick="setCustomCookie()">Set "messageTyped" cookie with the value you typed</button>
 	<br><br>
-	<button onclick="eatCookie()">Remove cookie</button>
+	<button onclick="eatCookie(1)">Remove cookie1</button>
+	<button onclick="eatCookie(2)">Remove "messageTyped" cookie</button>
 	<br><br>
 	<button onclick="console.log(document.cookie)">Read me my cookies</button>
 	<button onclick="var output = document.getElementById('message-display'); output.innerHTML=getCookie('messageTyped');">Click to display the value of "messageTyped" cookie</button>
@@ -34,8 +35,12 @@
 			document.cookie = "messageTyped="+userInput.value+"; sameSite=strict; path=/";
 			console.log("Custom cookie set: messageTyped="+userInput.value);
 		}
-		function eatCookie() {
-			document.cookie = "expires=0; sameSite=strict; path=/"; // will expire when the browsing session ends-- no reoopening closed tab!
+		function eatCookie(pass) {
+			if (pass === 1) {
+				document.cookie = "text=; expires=0; sameSite=strict; path=/"; // will expire when the browsing session ends-- no reoopening closed tab!
+			} else if (pass === 2) {
+				document.cookie = "messageTyped=; expires=0; sameSite=strict; path=/";
+			}
 			console.log("Cookie will expire when the browsing session ends.");
 		}
 		function getCookie(name) {
