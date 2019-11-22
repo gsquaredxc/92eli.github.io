@@ -87,7 +87,7 @@
 					if (httpRequest.status === 200) {
 						// No errors!
 						logDev("No errors.", "gray");
-						logDev("Data:"+httpRequest.responseText);
+						logDev("Data:"+httpRequest.responseText, "blue");
 						loadSpinner[0].style.visibility = "hidden"; // No more loading
 					} else {
 						logDev("Error "+httpRequest.status, "red");
