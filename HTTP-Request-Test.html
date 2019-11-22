@@ -96,7 +96,7 @@
 						if (httpRequest.fileTypeAccessed === "xml") {
 							var xmldoc = httpRequest.responseXML; // store the xml file
 							var root_node = xmldoc.getElementsByTagName("root").item(0); // transferse the xml dom to find the <root> tag (item(0) means the "first" one)
-							logDev(">>"root_node.firstChild.data, "blue"); // spit out the data of the child (the raw text is the child of <root>
+							logDev(">>"+root_node.firstChild.data, "blue"); // spit out the data of the child (the raw text is the child of <root>
 						}
 						loadSpinner[0].style.visibility = "hidden"; // No more loading
 					} else {
