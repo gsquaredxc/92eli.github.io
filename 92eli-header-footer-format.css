@@ -43,9 +43,8 @@ body {
 	display: block;
 	background-color: #49C8CC;
 }
-.dropdown-content a:hover {
-	/* style for hovering on item in list -- for some reason not working */
-	color: black;
+#navigator .dropdown-content a:hover {
+	/* style for hovering on item in list */
 	animation: bluepink 0.5s ease-in-out forwards;
 }
 .dropdown-holder:hover .dropdown-content {
