@@ -95,15 +95,15 @@
 					}
 				} else {
 					// Not ready
-					console.log("Not yet ready. readyState:"+XMLHTTPRequest.readyState);
+					console.log("Not yet ready. readyState:"+httpRequest.readyState);
 					//https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
-					if (XMLHTTPRequest.readyState === 0) {
+					if (httpRequest.readyState === 0) {
 						logDev("Request not initialized...");
-					} else if (XMLHTTPRequest.readyState === 1) {
+					} else if (httpRequest.readyState === 1) {
 						logDev("Connected...");
-					} else if (XMLHTTPRequest.readyState === 2) {
+					} else if (httpRequest.readyState === 2) {
 						logDev("Request recieved...");
-					} else if (XMLHTTPRequest.readyState === 3) {
+					} else if (httpRequest.readyState === 3) {
 						logDev("Processing request...");
 					}
 				}
