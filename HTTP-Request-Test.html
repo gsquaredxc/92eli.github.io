@@ -58,11 +58,8 @@
 			}
 			logEl.innerHTML += "\n";
 		}
-		function doButton2() {
-			b2.innerHTML = "Success!";
-		}
 		function doButton3() {
-			b3.innerHTML = "Success!";
+			b3.innerHTML = "This doesn't do anything yet.";
 		}
 		(function() {
 			var httpRequest;
@@ -121,8 +118,7 @@
 		})();
 		
 		window.addEventListener("load", function() { logDev("Page loaded.", "gray;"); });
-		// b1 listener done in closure
-		b2.addEventListener("click", doButton2);
+		// b1 and b2 listeners done in closure
 		b3.addEventListener("click", doButton3);
 	</script>
 </body>
