@@ -32,7 +32,10 @@
 	</style>
 </head>
 <body>
-	<button id="b1">Connect to HTTP server</button><div class="loader"></div>
+	<h1>HTTP Request Test</h1>
+	<p>This test sends a HTTP request to the file <a href="/TestAccess.txt">.../TestAccess.txt</a> or <a href="">.../fdasf.xml</a> and outputs what it recieves (along with verbose errors and statuses).</p>
+	<p>Click the buttons below to connect to the HTTP server.</p>
+	<button id="b1">Access text file</button><div class="loader"></div>
 	<br>
 	<button id="b2">Button2</button>
 	<br>
@@ -63,9 +66,10 @@
 		}
 		(function() {
 			var httpRequest;
-			b1.addEventListener("click", makeRequest);
+			b1.addEventListener("click", function(){ makeRequest("TestAccess.txt", "txt") };
+			b2.addEventListener("click", function(){ makeRequest("TestAccess.xml", "xml") };
 			
-			function makeRequest() {
+			function makeRequest(accessFile, fileType) {
 				loadSpinner[0].style.visibility = "visible"; // We are now loading
 				httpRequest = new XMLHttpRequest();
 				
@@ -75,8 +79,9 @@
 				}
 				// We're good - Exchange data:
 				// httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				httpRequest.fileTypeAccessed = fileType;
 				httpRequest.onreadystatechange = recieveContents;
-				httpRequest.open("GET", "TestAccess.txt"); // (transferType filePath, asynchronous)
+				httpRequest.open("GET", accessFile); // (transferType filePath, asynchronous)
 				httpRequest.send(); // Optionally include string with encodeURIComponent(var) for variables
 			}
 			function recieveContents() {
@@ -88,6 +93,11 @@
 						// No errors!
 						logDev("No errors.", "gray");
 						logDev("Data:"+httpRequest.responseText, "blue");
+						if (httpRequest.fileTypeAccessed === "xml") {
+							var xmldoc = httpRequest.responseXML; // store the xml file
+							var root_node = xmldoc.getElementsByTagName("root").item(0); // transferse the xml dom to find the <root> tag (item(0) means the "first" one)
+							logDev(">>"root_node.firstChild.data, "blue"); // spit out the data of the child (the raw text is the child of <root>
+						}
 						loadSpinner[0].style.visibility = "hidden"; // No more loading
 					} else {
 						logDev("Error "+httpRequest.status, "red");
