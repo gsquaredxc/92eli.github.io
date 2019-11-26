@@ -3,22 +3,33 @@
 <head>
 	<meta charset="utf-8">
 	<title>Cookie Test</title>
+	<style>
+		#test-description {
+			position: absolute;
+			top: 75px;
+			right: 50px;
+			width: 200px;
+			border: 5px double #75FFB5;
+			padding: 5px;
+		}
+	</style>
 	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
 </head>
 <body>
 	<header>
-	      <ul id="navigator">
+		<ul id="navigator">
 		<img src="92eli_logo_crop.png" alt="92Eli" height="45px" style="padding: 0 25px 0 25px;">
 		<li><a href="index.html">Home</a></li>
-		<li class="dropdown-holder" id="current-page"><a href="">HTML Tests</a>
-		  <div class="dropdown-content">
-		    <a href="Notification Test.html">Notification Test</a>
-		    <a href="vibration test.html">Vibration Test</a>
-		    <a href="">Cookie test</a>
-		  </div></li>
+		<li class="dropdown-holder" id="current-page"><a href="#">JavaScript Tests</a>
+		<div class="dropdown-content">
+			<a href="Notification Test.html">Notification Test</a>
+			<a href="vibration test.html">Vibration Test</a>
+			<a href="">Cookie Test</a>
+			<a href="HTTP-Request-Test.html">HTTP Request Test</a>
+		</div></li>
 		<li><a href="contact-me.html">Contact Me</a></li>
 		<li><a href="JS-warmup.html">JS Warm-up</a></li>
-	      </ul>
+		</ul>
 	</header>
 	<br><br><br><!-- header position is FIXED so have to have 3 breaks - contact me if you have a better way to do this -->
 	<div id="body-text">
@@ -34,6 +45,7 @@
 		<button onclick="console.log(document.cookie)">Read me my cookies</button>
 		<button onclick="var output = document.getElementById('message-display'); output.innerHTML=getCookie('messageTyped');">Click to display the value of "messageTyped" cookie</button>
 		<p id="message-display"></p>
+		<p id="test-description">This test sets cookies in the / directory for this site with a set value or a value typed in the box for the messageTyped cookie. Check your console for the cookie readout, or look for cookies in the site information panel.</p>
 	</div>
 	<footer>
 	  	<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
