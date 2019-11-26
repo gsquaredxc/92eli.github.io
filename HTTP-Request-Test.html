@@ -21,9 +21,10 @@
 		}
 		
 		#test-description {
-			position: absolute;
-			top: 75px;
-			right: 50px;
+			float: right;
+			clear: both;
+			position: relative;
+			top: -2em;
 			width: 200px;
 			border: 5px double #75FFB5;
 			padding: 5px;
@@ -57,9 +58,9 @@
 	<li><a href="JS-warmup.html">JS Warm-up</a></li>
 	</ul>
 	</header>
-	<br><br><br><!-- header position is FIXED so have to have 3 breaks - contact me if you have a better way to do this -->
 	<div id="body-text">
 		<h1>HTTP Request Test</h1>
+		<p id="test-description">This test sends a basic XMLHTTP GET request (using AJAX) to the displayed sources. It will not work locally and there are some restrictions on which files can be accessed, such as no third party domains unless you use <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">this complicated thing</a> that I never bothered to figure out.</p>
 		<p>This test sends a HTTP request to the file <a href="TestAccess.txt">.../TestAccess.txt</a> or <a href="TestAccess.xml">.../TestAccess.xml</a> and outputs what it recieves (along with verbose errors and statuses).</p>
 		<p>Click the buttons below to connect to the HTTP server.</p>
 		<button id="b1">Access text file</button><div class="loader"></div>
@@ -68,7 +69,6 @@
 		<br>
 		<button id="b3">Button3</button>
 		<pre id="log"></pre>
-		<p id="test-description">This test sends a basic XMLHTTP GET request (using AJAX) to the displayed sources. It will not work locally and there are some restrictions on which files can be accessed, such as no third party domains unless you use <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">this complicated thing</a> that I never bothered to figure out.</p>
 	</div>
 	<footer>
 		<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
