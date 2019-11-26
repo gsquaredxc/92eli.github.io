@@ -62,12 +62,13 @@
 			b3.innerHTML = "This doesn't do anything yet.";
 		}
 		(function() {
-			var httpRequest;
+			var httpRequest, currTime = new Date(), timeStart;
 			b1.addEventListener("click", function(){ makeRequest("TestAccess.txt", "txt") });
 			b2.addEventListener("click", function(){ makeRequest("TestAccess.xml", "xml") });
 			
 			function makeRequest(accessFile, fileType) {
 				loadSpinner[0].style.visibility = "visible"; // We are now loading
+				timeStart = currTime.getTime();
 				httpRequest = new XMLHttpRequest();
 				
 				if (!httpRequest) {
@@ -93,8 +94,9 @@
 						if (httpRequest.fileTypeAccessed === "xml") {
 							var xmldoc = httpRequest.responseXML; // store the xml file
 							var root_node = xmldoc.getElementsByTagName("root").item(0); // transferse the xml dom to find the <root> tag (item(0) means the "first" one)
-							logDev(">>"+root_node.firstChild.data, "blue"); // spit out the data of the child (the raw text is the child of <root>
+							logDev("XML first child of root>>"+root_node.firstChild.data, "blue"); // spit out the data of the child (the raw text is the child of <root>
 						}
+						logDev("Request completed in "+currTime.getTime()-timeStart+" ms.");
 						loadSpinner[0].style.visibility = "hidden"; // No more loading
 					} else {
 						logDev("Error "+httpRequest.status, "red");
