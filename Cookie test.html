@@ -35,6 +35,7 @@
 	<br><br><br><!-- header position is FIXED so have to have 3 breaks - contact me if you have a better way to do this -->
 	<div id="body-text">
 		<h1>Cookie Test<image width="50px" style="display:inline-block; margin: 0 0 0 10px;" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/2ChocolateChipCookies.jpg" alt="A cookie" title="My mom said to put a cookie here"></image></h1>
+		<p id="test-description">This test sets cookies in the / directory for this site with a set value or a value typed in the box for the messageTyped cookie. Check your console for the cookie readout, or look for cookies in the site information panel.</p>
 		<button onclick="setPlainCookie()">Set cookie1</button>
 		<button onclick="setFudgeCookie()">Set cookie to expire in 1 minute</button>
 		<input id="cookie-jar" type="text">
@@ -46,7 +47,6 @@
 		<button onclick="console.log(document.cookie)">Read me my cookies</button>
 		<button onclick="var output = document.getElementById('message-display'); output.innerHTML=getCookie('messageTyped');">Click to display the value of "messageTyped" cookie</button>
 		<p id="message-display"></p>
-		<p id="test-description">This test sets cookies in the / directory for this site with a set value or a value typed in the box for the messageTyped cookie. Check your console for the cookie readout, or look for cookies in the site information panel.</p>
 	</div>
 	<footer>
 	  	<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
