@@ -31,7 +31,7 @@
 	<p  style="margin: 0;"><a href="index.html">&lt;-- Back to 92eli.github.io</a></p>
 	<p class="title">Answer Key to <a href="JS-warmup.html">JS Warmup</a></p>
 	<p class="subTitle">Note that there are many ways to achieve the same goal — and different variable names</p>
-	<button id="show-button" onclick="showCode">Show code</button>
+	<button id="show-button" onclick="showCode()">Show code</button>
 	<p id="answer-code" class="code" style="visibility: hidden;">
 		var changeo = document.getElementById("changeo");
 		<br>changeo.style.color = "blue";
@@ -80,7 +80,7 @@
 	
 	<script>
 		function showCode() {
-			document.getElementById("show-button").style.visibility = "hidden";
+			document.body.removeChild(document.getElementById("show-button"));;
 			document.getElementById("answer-code").style.visibility = "visible";
 		}
 	</script>
