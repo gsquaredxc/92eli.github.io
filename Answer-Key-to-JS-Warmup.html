@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<title>Answer Key to JS Warmup</title>
+	<style>
+		.code {
+			padding:10px;
+			font-size:12.0pt;
+			font-family:"Courier",serif;
+			line-height: 115%;
+			background-color: #eeeeee;
+		}
+		.title {
+			margin: 0 0 3pt 0;
+			line-height:200%;
+			page-break-after:avoid;
+			font-size:26.0pt;
+			font-family:"Times New Roman",serif;
+		}
+		.subTitle {
+			margin: 0 0 16pt 0;
+			line-height:200%;
+			page-break-after:avoid;
+			font-size:15.0pt;
+			font-family:"Arial",sans-serif;
+			color:#666666;
+		}
+	</style>
+</head>
+<body>
+	<p class="title">Answer Key to <a href="JS-warmup.html">JS Warmup</a></p>
+	<p class="subTitle">Note that there are many ways to achieve the same goal — and different variable names</p>
+	<p class="code">
+		var changeo = document.getElementById("changeo");
+		<br>changeo.style.color = "blue";
+		<br><br>
+		<br>var aList = document.getElementsByClassName("a-list");
+		<br><br>
+		<br>for (var i = 0; i < aList.length; i++) {
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;aList[i].style.backgroundColor = "yellow";
+		<br>}
+		<br><br>
+		<br>var selected = document.querySelector("div#wrapper1 p");
+		<br>selected.innerHTML = "Your Name";
+		<br><br>
+		<br>var deleteThis = document.querySelector("#soon-to-go");
+		<br>document.body.removeChild(deleteThis);
+		<br><br>
+		<br>var counter = document.getElementById("counter");
+		<br>function countUp() {
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;this.innerHTML = parseInt(this.innerHTML,10)+1;
+		<br>}
+		<br><br>
+		<br>counter.addEventListener("click", countUp);
+		<br>var strongTags = document.getElementsByTagName("strong");
+		<br>for (var i = 0; i < strongTags.length; i++) {
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;strongTags[i].style.border = "2px solid black";
+		<br>}
+		<br><br>
+		<br>var toAnimate = document.getElementById("animate-me");
+		<br>var myAnimation = (function() {
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;var opacitySwitch; // this var will need to be accessed privately for this function
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;return function(animator) {
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var d = new Date();
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ((d.getTime() % 1) === 0) { // run every 1 ms
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var currOpacity = parseFloat(animator.style.opacity); // convert opacity to float
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currOpacity >= 1) opacitySwitch = true;
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currOpacity <= 0) opacitySwitch = false;
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(opacitySwitch === true) ? animator.style.opacity = currOpacity - 0.01 : animator.style.opacity = currOpacity + 0.01
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window.requestAnimationFrame(function() { myAnimation(animator); });
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;};
+		<br>})();
+		<br>toAnimate.style.opacity = "1"; // have to init opacity -- default is ""
+		<br>myAnimation(toAnimate);
+		<!-- ^^ efficiency right there -->
+	</p>
+</body>
+</html>
