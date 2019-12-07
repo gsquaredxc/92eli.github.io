@@ -53,23 +53,28 @@ Ball.prototype.ballCollisionDetect = function() { // check for ball collisions
                     case 0:
                         break;
                     case 1:
-                        let hold = balls[i].color; // save the current color because we're going to...
-                        balls[i].color = this.color; // make the current ball become the checked ball's color
-                        this.color = hold; // set this to the other ball's old color
+                        //let hold = balls[i].color; // save the current color because we're going to...
+                        //[i].color = this.color; // make the current ball become the checked ball's color
+                        this.color = balls[i].color; // set this color to the other ball's old color
                         break;
                     case 2:
                         balls[i].color = this.color; // give your color
                         break;
                     case 3:
-                        // this would work but they sometimes bounce multiple times when the collision keeps getting fired
                         // bounce them!
+                        /*let hold1 = this.velX; // save the velocities
+                        let hold2 = this.velY;
+                        this.velX = balls[i].velX; // idky but i think this would work
+                        this.velY = balls[i].velY;
+                        balls[i].velX = hold1;
+                        balls[i].velY = hold2;*/ //not keeping these settings because they are buggier
                         this.velX = -(this.velX);
                         this.velY = -(this.velY);
-                        balls[i].velX = -(balls[i].velX);
-                        balls[i].velY = - (balls[i].velY);
+                        //balls[i].velX = -(balls[i].velX);
+                        //balls[i].velY = - (balls[i].velY);
                         break;
                     default:
-                        console.error(new Error("error: ballCollisionType is unknown value. Resetting to 0..."));
+                        console.error(new Error("ballCollisionType is unknown value. Resetting to 0..."));
                         ballCollisionType = 0;
                 }
             }
@@ -146,7 +151,7 @@ var ballCollisionType = 1;
 var ballGravity = 0;
 
 function updateBallCount() {
-    while (balls.length < ballsToMake) {
+    while (balls.length < ballsToMake) { // error: balls sometimes spawn inside of others and get stuck (x+size,y+size)
         let size = randomNum(15, 25); // random reasonable size -- have to define this before the new Ball because x, y, and size need to access it
         let ball = new Ball(
             randomNum(0 + size, width - size), // spawn inside the canvas
@@ -179,6 +184,8 @@ function loop() {
          * make wallCollisionDetect(), ballCollDet(), and UICollDet() switch a wallCollision/ballColl/UIColl var true/false
          * Make the updateBalls function update the ball's velocity based on velocity changes from wallCollision/ballColl/UIColl
          * Make updateBalls move the ball and do any other editing if needed (color change, )
+         * 
+         * Maybe make a new ballCollision mode: split
          */
     } // IDKY but they sometimes get stuck on walls
 
