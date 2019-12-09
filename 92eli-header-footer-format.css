@@ -52,9 +52,6 @@ body {
 }
 
 footer {
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
 	width: 100%;
 	background-color: #849899;
 	bottom: 0px;
@@ -68,7 +65,6 @@ footer a { color: #F7F7F7; }
 #body-text {
 	margin: 8px;
 	padding-top: 3em;
-	padding-bottom: 111px;
 }
 
 /* Another compound color: #49C8CC */
