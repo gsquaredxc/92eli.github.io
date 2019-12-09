@@ -20,16 +20,6 @@
 			visibility: hidden;
 		}
 		
-		#test-description {
-			float: right;
-			clear: both;
-			position: relative;
-			top: -2em;
-			width: 200px;
-			border: 5px double #75FFB5;
-			padding: 5px;
-		}
-		
 		@keyframes spin {
 			from { transform: rotate(0deg); }
 			to { transform: rotate(360deg); }
@@ -40,43 +30,18 @@
 			to { -webkit-transform: rotate(360deg); }
 		}
 	</style>
-	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
 </head>
 <body>
-	<header>
-	<ul id="navigator">
-	<img src="92eli_logo_crop.png" alt="92Eli" height="45px" style="padding: 0 25px 0 25px;">
-	<li><a href="index.html">Home</a></li>
-	<li class="dropdown-holder" id="current-page"><a href="#">JavaScript Tests</a>
-	<div class="dropdown-content">
-		<a href="Notification Test.html">Notification Test</a>
-		<a href="vibration test.html">Vibration Test</a>
-		<a href="Cookie test.html">Cookie Test</a>
-		<a href="">HTTP Request Test</a>
-	</div></li>
-	<li><a href="contact-me.html">Contact Me</a></li>
-	<li><a href="JS-warmup.html">JS Warm-up</a></li>
-	<li><a href="ballsbounceproj/bouncing-page.html">Balls Bounce Project</a></li>
-	</ul>
-	</header>
-	<div id="body-text">
-		<h1>HTTP Request Test</h1>
-		<p id="test-description">This test sends a basic XMLHTTP GET request (using AJAX) to the displayed sources. It will not work locally and there are some restrictions on which files can be accessed, such as no third party domains unless you use <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">this complicated thing</a> that I never bothered to figure out.</p>
-		<p>This test sends a HTTP request to the file <a href="TestAccess.txt">.../TestAccess.txt</a> or <a href="TestAccess.xml">.../TestAccess.xml</a> and outputs what it recieves (along with verbose errors and statuses).</p>
-		<p>Click the buttons below to connect to the HTTP server.</p>
-		<button id="b1">Access text file</button><div class="loader"></div>
-		<br>
-		<button id="b2">Access xml file</button>
-		<br>
-		<button id="b3">Button3</button>
-		<pre id="log"></pre>
-	</div>
-	<footer>
-		<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
-		<p>Be the reason someone smiles today.</p>
-		<p>Last updated 11/12/19 (in theory) • Have patience, rennovation of this site in progress</p>
-		<p><a href="#">Back to top</a></p>
-	</footer>
+	<h1>HTTP Request Test</h1>
+	<p>This test sends a HTTP request to the file <a href="TestAccess.txt">.../TestAccess.txt</a> or <a href="TestAccess.xml">.../TestAccess.xml</a> and outputs what it recieves (along with verbose errors and statuses).</p>
+	<p>Click the buttons below to connect to the HTTP server.</p>
+	<button id="b1">Access text file</button><div class="loader"></div>
+	<br>
+	<button id="b2">Access xml file</button>
+	<br>
+	<label>Input text to send to php file:<input type="text" id="ajaxTextbox"></label>
+	<button id="b3">Send to php</button>
+	<pre id="log"></pre>
 	
 	<script>
 		var b1 = document.getElementById("b1");
@@ -101,32 +66,43 @@
 			var httpRequest;
 			b1.addEventListener("click", function(){ makeRequest("TestAccess.txt", "txt") });
 			b2.addEventListener("click", function(){ makeRequest("TestAccess.xml", "xml") });
+			b3.addEventListener("click", function(){ var nameText  = document.getElementById("ajaxTextbox").value; makeRequest("TestAccess.php", "php", nameText) });
 			
-			function makeRequest(accessFile, fileType) {
+			function makeRequest(accessFile, fileType, dataToSend) {
 				loadSpinner[0].style.visibility = "visible"; // We are now loading
 				httpRequest = new XMLHttpRequest();
 				
 				if (!httpRequest) {
-					logDev("XMLHTTP Request failed to start.", "red");
+					logDev("XMLHTTP Request failed to start: XMLHttpRequest() is not available.", "red");
 					return false;
 				}
 				// We're good - Exchange data:
-				// httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-				httpRequest.fileTypeAccessed = fileType;
-				httpRequest.onreadystatechange = recieveContents;
-				httpRequest.open("GET", accessFile); // (transferType filePath, asynchronous)
-				httpRequest.send(); // Optionally include string with encodeURIComponent(var) for variables
+				if (fileType === "php") {
+					httpRequest.fileTypeAccessed = fileType; // Not necessary but I want more features
+					httpRequest.onreadystatechange = recieveContents; // when something changes, run recieveContents()
+					httpRequest.open("POST", accessFile); // POST this time means we are sending data, too
+					httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					httpRequest.send("userName=" + encodeURIComponent(dataToSend)); // send the data
+				} else {
+					httpRequest.fileTypeAccessed = fileType; // Not necessary
+					httpRequest.onreadystatechange = recieveContents;
+					httpRequest.open("GET", accessFile); // (transferType, filePath, asynchronous)
+					httpRequest.send(); // send the request
+				}
 			}
 			function recieveContents() {
 				// Handle response of HTTP request:
-				if (httpRequest.readyState === XMLHttpRequest.DONE) {
+				if (httpRequest.readyState === XMLHttpRequest.DONE) { // === 4
 					// Yay! We're ready!
 					logDev("Response ready.", "green");
 					if (httpRequest.status === 200) {
 						// No errors!
 						logDev("No errors.", "gray");
 						logDev("Data:"+httpRequest.responseText, "blue");
-						if (httpRequest.fileTypeAccessed === "xml") {
+						if (httpRequest.fileTypeAccessed === "php") { // php POST is recieved a bit differently
+							var response = JSON.parse(httpRequest.responseText); // must parse the string
+							logDev("Parsed string:"+response.computedString, "blue");
+						} else if (httpRequest.fileTypeAccessed === "xml") {
 							var xmldoc = httpRequest.responseXML; // store the xml file
 							var root_node = xmldoc.getElementsByTagName("root").item(0); // transferse the xml dom to find the <root> tag (item(0) means the "first" one)
 							logDev("XML first child of &lt;root&gt; &gt;&gt;"+root_node.firstChild.data, "blue"); // spit out the data of the child (the raw text is the child of <root>
@@ -135,6 +111,7 @@
 					} else {
 						logDev("Error "+httpRequest.status, "red");
 						logDev("Error code reference: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html", "#ffaaaa");
+						logDev("Check your console (CTRL+SHIFT+J) for more information.", "#ffaaaa");
 					}
 				} else {
 					// Not ready
@@ -154,7 +131,6 @@
 		})();
 		
 		window.addEventListener("load", function() { logDev("Page loaded.", "gray;"); });
-		// b1 and b2 listeners done in closure
-		b3.addEventListener("click", doButton3);
+		// b1 b2 and b3 listeners done in closure
 	</script>
 </body>
