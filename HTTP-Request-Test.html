@@ -58,8 +58,9 @@
 		<br>
 		<button id="b2">Access xml file</button>
 		<br>
-		<label>Input text to send to php file:<input type="text" id="ajaxTextbox"></label>**This will not work on github because GitHub pages only supports STATIC documents and not php
+		<label>Input text to send to php file:<input type="text" id="ajaxTextbox"></label>
 		<button id="b3">Send to php</button>
+		<p style="display:inline">**This will not work on github because GitHub pages only supports STATIC documents and not php.</p>
 		<pre id="log"></pre>
 	</div>
 	
@@ -159,5 +160,21 @@
 		
 		window.addEventListener("load", function() { logDev("Page loaded.", "gray;"); });
 		// b1 b2 and b3 listeners done in closure
+	</script>
+	<script>
+		// This just keeps the footer at the bottom
+		var footerEl = document.getElementsByTagName("footer")[0];
+		var bodyP = document.getElementById("body-text");
+		var heightP = bodyP.style.height;
+		
+		var prevBodyP;
+		function checkHeightUpdate() {
+			heightP = bodyP.style.height; // update height
+			if (heightP !== prevBodyP) { // if changed
+				footerEl.style.bottom = 0; // update the footer to bottom
+				prevBodyP = heightP;
+			}
+		}
+		window.setInterval(checkHeightUpdate, 500); // check every 500ms
 	</script>
 </body>
