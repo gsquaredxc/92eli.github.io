@@ -30,8 +30,25 @@
 			to { -webkit-transform: rotate(360deg); }
 		}
 	</style>
+	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
 </head>
 <body>
+	<header>
+		<ul id="navigator">
+		<img src="92eli_logo_crop.png" alt="92Eli" height="45px" style="padding: 0 25px 0 25px;">
+		<li><a href="" id="current-page">Home</a></li>
+		<li class="dropdown-holder"><a href="#">JavaScript Tests</a>
+		<div class="dropdown-content">
+			<a href="Notification Test.html">Notification Test</a>
+			<a href="vibration test.html">Vibration Test</a>
+			<a href="Cookie test.html">Cookie Test</a>
+			<a href="HTTP-Request-Test.html">HTTP Request Test</a>
+		</div></li>
+		<li><a href="contact-me.html">Contact Me</a></li>
+		<li><a href="JS-warmup.html">JS Warm-up</a></li>
+		<li><a href="ballsbounceproj/bouncing-page.html">Balls Bounce Project</a></li>
+		</ul>
+	</header>
 	<h1>HTTP Request Test</h1>
 	<p>This test sends a HTTP request to the file <a href="TestAccess.txt">.../TestAccess.txt</a> or <a href="TestAccess.xml">.../TestAccess.xml</a> and outputs what it recieves (along with verbose errors and statuses).</p>
 	<p>Click the buttons below to connect to the HTTP server.</p>
@@ -42,6 +59,13 @@
 	<label>Input text to send to php file:<input type="text" id="ajaxTextbox"></label>
 	<button id="b3">Send to php</button>
 	<pre id="log"></pre>
+	
+	<footer>
+		<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
+		<p>Be the reason someone smiles today.</p>
+		<p>Last updated 11/12/19 (in theory) • Have patience, rennovation of this site in progress</p>
+		<p><a href="#">Back to top</a></p>
+	</footer>
 	
 	<script>
 		var b1 = document.getElementById("b1");
