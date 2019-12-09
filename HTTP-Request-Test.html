@@ -64,7 +64,7 @@
 		<pre id="log"></pre>
 	</div>
 	
-	<footer>
+	<footer style="position: static; padding: 5px 0 5px 0;">
 		<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
 		<p>Be the reason someone smiles today.</p>
 		<p>Last updated 12/8/19 (in theory) • Have patience, rennovation of this site in progress</p>
@@ -160,21 +160,5 @@
 		
 		window.addEventListener("load", function() { logDev("Page loaded.", "gray;"); });
 		// b1 b2 and b3 listeners done in closure
-	</script>
-	<script>
-		// This just keeps the footer at the bottom
-		var footerEl = document.getElementsByTagName("footer")[0];
-		var bodyP = document.getElementById("body-text");
-		var heightP = bodyP.style.height;
-		
-		var prevBodyP;
-		function checkHeightUpdate() {
-			heightP = bodyP.style.height; // update height
-			if (heightP !== prevBodyP) { // if changed
-				footerEl.style.bottom = 0; // update the footer to bottom
-				prevBodyP = heightP;
-			}
-		}
-		window.setInterval(checkHeightUpdate, 500); // check every 500ms
 	</script>
 </body>
