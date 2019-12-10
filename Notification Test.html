@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Notification Test</title>
+	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
+	<style>
+		#test-description {
+			float: right;
+			clear: both;
+			position: relative;
+			top: -2em;
+			width: 250px;
+			border: 5px double #75FFB5;
+			padding: 5px;
+		}
+	</style>
+	</head>
+<body>
+	<header>
+		<ul id="navigator">
+		<img src="92eli_logo_crop.png" alt="92Eli" height="45px" style="padding: 0 25px 0 25px;">
+		<li><a href="index.html">Home</a></li>
+		<li class="dropdown-holder" id="current-page"><a href="#">JavaScript Tests</a>
+		<div class="dropdown-content">
+			<a href="">Notification Test</a>
+			<a href="vibration test.html">Vibration Test</a>
+			<a href="Cookie test.html">Cookie Test</a>
+			<a href="HTTP-Request-Test.html">HTTP Request Test</a>
+		</div></li>
+		<li><a href="contact-me.html">Contact Me</a></li>
+		<li><a href="JS-warmup.html">JS Warm-up</a></li>
+		<li><a href="ballsbounceproj/bouncing-page.html">Balls Bounce Project</a></li>
+		</ul>
+	</header>
+    	<div id="body-text">
+		<h1>Notification Test</h1>
+		<p id="test-description">This test first requests permissions to send notifications on page load. Then once you click the button, a notification is sent to the user. Any errors are outputted below the button. Check out the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API">MDN article</a> on notifications. Note: Notifications cannot be sent from local files, so if you download this webpage the notifications probably won't send.</p>
+		<p>Please allow notifications. If you are not prompted to do so, try refreshing the page.</p>
+		<button id="notif-button">Give me a cool notification!</button>
+
+		<pre id="error-log"></pre>
+	</div>
+    
+  	<footer>
+	  	<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
+		  <p>Be the reason someone smiles today.</p>
+  		<p>Last updated 11/12/19 (in theory) • Have patience, rennovation of this site in progress</p>
+	  	<p><a href="#">Back to top</a></p>
+  	</footer>
+	<script>
+		// For more: https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
+		var notifButton = document.getElementById("notif-button");
+		var errorLog = document.getElementById("error-log");
+		
+		window.addEventListener("load", function() {
+			Notification.requestPermission(function(status) {
+				if (Notification.permission !== status) {
+					Notification.permission = status;
+				}
+			});
+		});
+		/*Notification.requestPermission().then(function(result) {
+			console.log(result);
+		});*/
+		notifButton.addEventListener("click", function() {
+			if (window.Notification && Notification.permission === "granted") {
+				var firstNotify = new Notification("Hello", {body:"Yay! Notification priveldges are allowed!"}); //, {body: "text", icon: "url"}
+			} else if (window.Notification && Notification.permission !== "denied") {
+				errorLog.innerHTML += "\nWe don't have a notification preference set or this file is being accessed locally.";
+				Notification.requestPermission();
+				errorLog.innerHTML += "\n  Accept the prompt to allow notifications and click again.";
+				// For some reason, Notification.permission always is "default" when used locally on disk.
+			} else {
+				errorLog.innerHTML += "\nNotification permission is denied.";
+			}
+		});
+	</script>
+</body>
+</html>

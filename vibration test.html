@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vibration Test</title>
+	<style>
+		#test-description {
+			float: right;
+			clear: both;
+			position: relative;
+			top: -2em;
+			width: 200px;
+			border: 5px double #75FFB5;
+			padding: 5px;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
+</head>
+<body>
+	<header>
+		<ul id="navigator">
+		<img src="92eli_logo_crop.png" alt="92Eli" height="45px" style="padding: 0 25px 0 25px;">
+		<li><a href="index.html">Home</a></li>
+		<li class="dropdown-holder" id="current-page"><a href="#">JavaScript Tests</a>
+		<div class="dropdown-content">
+			<a href="Notification Test.html">Notification Test</a>
+			<a href="">Vibration Test</a>
+			<a href="Cookie test.html">Cookie Test</a>
+			<a href="HTTP-Request-Test.html">HTTP Request Test</a>
+		</div></li>
+		<li><a href="contact-me.html">Contact Me</a></li>
+		<li><a href="JS-warmup.html">JS Warm-up</a></li>
+		<li><a href="ballsbounceproj/bouncing-page.html">Balls Bounce Project</a></li>
+		</ul>
+	</header>
+	<div id="body-text">
+		<h1>Is your phone vibrating?</h1>
+		<p id="test-description">This test will work on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/vibrate#Browser_compatibility" target="_blank" rel="noopener">most browsers</a>, other than Safari for IOS and a few others. This simple uses a button to call navigator.vibrate([arr]) in a patter with navigator.vibrate(0) to stop it.</p>
+		<button id="clickme">Press here to vibrate a pattern</button>
+		<button id="stop">STOP ALL VIBRATIONS</button>
+	</div>
+	<footer>
+		<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
+		<p>Be the reason someone smiles today.</p>
+		<p>Last updated 11/12/19 (in theory) • Have patience, rennovation of this site in progress</p>
+		<p><a href="#">Back to top</a></p>
+	</footer>
+	
+	<script>
+		var button = document.querySelector("#clickme");
+		var stopButton = document.querySelector("#stop");
+		
+		window.addEventListener("load", function() {
+			// This will not work because Chrome prevents navigator.vibrate before a user taps the page. https://www.chromestatus.com/feature/5644273861001216
+			window.navigator.vibrate(600);
+		});
+		button.addEventListener("click", function() {
+			console.log("Vibrating...");
+			navigator.vibrate([50, 100, 50, 100, 400]);
+		});
+		stopButton.addEventListener("click", function() {
+			console.log("Vibration stopped.");
+			navigator.vibrate(0);
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+body {
+	margin: 0;
+}
+#navigator {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: #849899;
+	margin: 0px 0px 0px 0px;
+	padding: 10px 5px 10px 5px;
+	font-family: sans-serif;
+}
+#navigator li {
+	list-style-type: none;
+	overflow: hidden;
+	font-size: 2em;
+	display: inline-block;
+}
+#navigator li a {
+	padding: 0px 7px 0px 7px;
+	color: #75FFB5;
+	text-decoration: none;
+}
+#navigator li a:hover {
+	/*background-color: #FFB5C2;*/
+	animation: graypink 0.5s ease-in-out forwards;
+}
+#current-page {
+	background-color: #CC49A2;
+}
+#navigator li #current-page:hover { /* Have to be more specific that the #navigator li a:hover rule */
+	animation: purplepink 0.5s ease-in-out forwards;
+}
+/* https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_navbar */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	box-shadow: 0;
+	width: 246px;
+}
+.dropdown-content a {
+	/* style for regular items in list */
+	display: block;
+	background-color: #49C8CC;
+}
+#navigator .dropdown-content a:hover {
+	/* style for hovering on item in list */
+	animation: bluepink 0.5s ease-in-out forwards;
+}
+.dropdown-holder:hover .dropdown-content {
+	display: block;
+}
+
+footer {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	background-color: #849899;
+	bottom: 0px;
+	color: #F7F7F7;
+	font-size: 0.5em;
+	font-family: sans-serif;
+}
+footer p { margin: 15px; }
+footer a { color: #F7F7F7; }
+
+#body-text {
+	margin: 8px;
+	padding-top: 3em;
+}
+
+/* Another compound color: #49C8CC */
+
+@keyframes graypink {
+	from {background-color: #849899;}
+	to {background-color: #FFB5C2;}
+}
+@keyframes purplepink {
+	from {background-color: #CC49A2;}
+	to {background-color: #FFB5C2;}
+}
+@keyframes bluepink {
+	from {background-color: #49C8CC;}
+	to {background-color: #FFB5C2;}
+}

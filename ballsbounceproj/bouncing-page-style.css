@@ -1,0 +1,115 @@
+html, body {
+    margin: 0;
+}
+body {
+    font-family: sans-serif;
+    overflow: hidden; /* get rid of the scrollbars that appear */
+}
+h1 {
+    margin: 0;
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    color: white;
+}
+
+.adjuster {
+    color: black;
+    font: 26px sans-serif;
+    margin: 0;
+    border: 1.5px solid #767676;
+    height: 60px;
+}
+.adjuster button {
+    user-select: none;
+    width: 56.25px;
+    height: 15px;
+    background-color: #35f28d;
+    border: none;
+    cursor: pointer;
+}
+.adjuster .value {
+    user-select: none;
+    background-color: #ffffff;
+    margin: 0;
+    text-align: center;
+    width: 56.25px;
+    height: 30px;
+    overflow: none;
+}
+.adjuster .label {
+    background-color: #ffffff;
+    height: 45px;
+    padding: 15px 0 0 3.75px;
+    margin: 0;
+    display: inline-block;
+}
+.extra-button {
+    user-select: none;
+    font: 10px sans-serif;
+    padding: 4px 5px 4px 5px;
+    height: 3em;
+    border-radius: 5px;
+    background-color: #35f28d;
+    border: none;
+    cursor: pointer;
+}
+.extra-button:focus {
+    outline: none;
+}
+
+#white-corner-link {
+    color: white;
+    text-decoration: underline;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+}
+#white-corner-link:hover {
+    cursor: pointer;
+}
+#info-button {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #17BABF;
+    border: none;
+    border-right: 1px groove #F47389;
+    border-bottom: 1px groove #F47389;
+    border-bottom-right-radius: 50%;
+    color: black;
+    font: 16px monospace;
+}
+#info-popup {
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    width: 40%;
+    background: #17BABF;
+    color: black;
+    margin: 0;
+    padding: 25px;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+/* custom scrollbar! */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #578B8C;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #BF1789;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #F47389;
+}

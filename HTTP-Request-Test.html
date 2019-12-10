@@ -1,0 +1,164 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>HTTP Request Test</title>
+	<style>
+		button { margin: 5px; }
+		#log { background-color: #f0f0f0}
+		
+		.loader {
+			border: 5px solid #858585;
+			border-top: 5px solid #01fe3a;
+			border-radius: 50%;
+			width: 15px;
+			height: 15px;
+			-webkit-animation: spin 1.5s linear infinite;
+			animation: spin 1.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+			display: inline-block;
+			margin: 0 5px 0 5px;
+			
+			visibility: hidden;
+		}
+		
+		@keyframes spin {
+			from { transform: rotate(0deg); }
+			to { transform: rotate(360deg); }
+		}
+		/* Safari */
+		@-webkit-keyframes spin {
+			from { -webkit-transform: rotate(0deg); }
+			to { -webkit-transform: rotate(360deg); }
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
+</head>
+<body>
+	<header>
+		<ul id="navigator">
+		<img src="92eli_logo_crop.png" alt="92Eli" height="45px" style="padding: 0 25px 0 25px;">
+		<li><a href="index.html">Home</a></li>
+		<li class="dropdown-holder" id="current-page"><a href="#">JavaScript Tests</a>
+		<div class="dropdown-content">
+			<a href="Notification Test.html">Notification Test</a>
+			<a href="vibration test.html">Vibration Test</a>
+			<a href="Cookie test.html">Cookie Test</a>
+			<a href="HTTP-Request-Test.html">HTTP Request Test</a>
+		</div></li>
+		<li><a href="contact-me.html">Contact Me</a></li>
+		<li><a href="JS-warmup.html">JS Warm-up</a></li>
+		<li><a href="ballsbounceproj/bouncing-page.html">Balls Bounce Project</a></li>
+		</ul>
+	</header>
+	
+	<div id="body-text">
+		<h1>HTTP Request Test</h1>
+		<p>This test sends a HTTP request to the file <a href="TestAccess.txt">.../TestAccess.txt</a> or <a href="TestAccess.xml">.../TestAccess.xml</a> and outputs what it recieves (along with verbose errors and statuses).</p>
+		<p>Click the buttons below to connect to the HTTP server.</p>
+		<button id="b1">Access text file</button><div class="loader"></div>
+		<br>
+		<button id="b2">Access xml file</button>
+		<br>
+		<label>Input text to send to php file:<input type="text" id="ajaxTextbox"></label>
+		<button id="b3">Send to php</button>
+		<p style="display:inline">**This will not work on github because GitHub pages only supports STATIC documents and not php.</p>
+		<pre id="log"></pre>
+	</div>
+	
+	<footer style="position: static; padding: 5px 0 5px 0;">
+		<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
+		<p>Be the reason someone smiles today.</p>
+		<p>Last updated 12/8/19 (in theory) • Have patience, rennovation of this site in progress</p>
+		<p><a href="#">Back to top</a></p>
+	</footer>
+	
+	<script>
+		var b1 = document.getElementById("b1");
+		var loadSpinner = document.getElementsByClassName("loader");
+		var b2 = document.getElementById("b2");
+		var b3 = document.getElementById("b3");
+		var logEl = document.getElementById("log");
+		var textVar = "Hello, world!";
+		
+		function logDev(inputData, chooseColor) {
+			if (chooseColor) {
+				logEl.innerHTML += "<span style='color:"+chooseColor+";'>"+inputData+"</span>";
+			} else {
+				logEl.innerHTML += inputData;
+			}
+			logEl.innerHTML += "\n";
+		}
+		function doButton3() {
+			b3.innerHTML = "This doesn't do anything yet.";
+		}
+		(function() {
+			var httpRequest;
+			b1.addEventListener("click", function(){ makeRequest("TestAccess.txt", "txt") });
+			b2.addEventListener("click", function(){ makeRequest("TestAccess.xml", "xml") });
+			b3.addEventListener("click", function(){ var nameText  = document.getElementById("ajaxTextbox").value; makeRequest("TestAccess.php", "php", nameText) });
+			
+			function makeRequest(accessFile, fileType, dataToSend) {
+				loadSpinner[0].style.visibility = "visible"; // We are now loading
+				httpRequest = new XMLHttpRequest();
+				
+				if (!httpRequest) {
+					logDev("XMLHTTP Request failed to start: XMLHttpRequest() is not available.", "red");
+					return false;
+				}
+				// We're good - Exchange data:
+				if (fileType === "php") {
+					httpRequest.fileTypeAccessed = fileType; // Not necessary but I want more features
+					httpRequest.onreadystatechange = recieveContents; // when something changes, run recieveContents()
+					httpRequest.open("POST", accessFile); // POST this time means we are sending data, too
+					httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					httpRequest.send("userName=" + encodeURIComponent(dataToSend)); // send the data
+				} else {
+					httpRequest.fileTypeAccessed = fileType; // Not necessary
+					httpRequest.onreadystatechange = recieveContents;
+					httpRequest.open("GET", accessFile); // (transferType, filePath, asynchronous)
+					httpRequest.send(); // send the request
+				}
+			}
+			function recieveContents() {
+				// Handle response of HTTP request:
+				if (httpRequest.readyState === XMLHttpRequest.DONE) { // === 4
+					// Yay! We're ready!
+					logDev("Response ready.", "green");
+					if (httpRequest.status === 200) {
+						// No errors!
+						logDev("No errors.", "gray");
+						logDev("Data:"+httpRequest.responseText, "blue");
+						if (httpRequest.fileTypeAccessed === "php") { // php POST is recieved a bit differently
+							var response = JSON.parse(httpRequest.responseText); // must parse the string
+							logDev("Parsed string:"+response.computedString, "blue");
+						} else if (httpRequest.fileTypeAccessed === "xml") {
+							var xmldoc = httpRequest.responseXML; // store the xml file
+							var root_node = xmldoc.getElementsByTagName("root").item(0); // transferse the xml dom to find the <root> tag (item(0) means the "first" one)
+							logDev("XML first child of &lt;root&gt; &gt;&gt;"+root_node.firstChild.data, "blue"); // spit out the data of the child (the raw text is the child of <root>
+						}
+						loadSpinner[0].style.visibility = "hidden"; // No more loading
+					} else {
+						logDev("Error "+httpRequest.status, "red");
+						logDev("Error code reference: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html", "#ffaaaa");
+						logDev("Check your console (CTRL+SHIFT+J) for more information.", "#ffaaaa");
+					}
+				} else {
+					// Not ready
+					console.log("Not yet ready. readyState:"+httpRequest.readyState);
+					//https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
+					if (httpRequest.readyState === 0) {
+						logDev("Request not initialized...");
+					} else if (httpRequest.readyState === 1) {
+						logDev("Connected...");
+					} else if (httpRequest.readyState === 2) {
+						logDev("Request recieved...");
+					} else if (httpRequest.readyState === 3) {
+						logDev("Processing request...");
+					}
+				}
+			};
+		})();
+		
+		window.addEventListener("load", function() { logDev("Page loaded.", "gray;"); });
+		// b1 b2 and b3 listeners done in closure
+	</script>
+</body>

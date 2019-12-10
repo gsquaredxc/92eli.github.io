@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cookie Test</title>
+	<style>
+		#test-description {
+			float: right;
+			clear: both;
+			position: relative;
+			top: -2em;
+			width: 200px;
+			border: 5px double #75FFB5;
+			padding: 5px;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="92eli-header-footer-format.css">
+</head>
+<body>
+	<header>
+		<ul id="navigator">
+		<img src="92eli_logo_crop.png" alt="92Eli" height="45px" style="padding: 0 25px 0 25px;">
+		<li><a href="index.html">Home</a></li>
+		<li class="dropdown-holder" id="current-page"><a href="#">JavaScript Tests</a>
+		<div class="dropdown-content">
+			<a href="Notification Test.html">Notification Test</a>
+			<a href="vibration test.html">Vibration Test</a>
+			<a href="">Cookie Test</a>
+			<a href="HTTP-Request-Test.html">HTTP Request Test</a>
+		</div></li>
+		<li><a href="contact-me.html">Contact Me</a></li>
+		<li><a href="JS-warmup.html">JS Warm-up</a></li>
+		<li><a href="ballsbounceproj/bouncing-page.html">Balls Bounce Project</a></li>
+		</ul>
+	</header>
+	<div id="body-text">
+		<h1>Cookie Test<image width="50px" style="display:inline-block; margin: 0 0 0 10px;" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/2ChocolateChipCookies.jpg" alt="A cookie" title="My mom said to put a cookie here"></image></h1>
+		<p id="test-description">This test sets cookies in the / directory for this site with a set value or a value typed in the box for the messageTyped cookie. Check your console for the cookie readout, or look for cookies in the site information panel.</p>
+		<button onclick="setPlainCookie()">Set cookie1</button>
+		<button onclick="setFudgeCookie()">Set cookie to expire in 1 minute</button>
+		<input id="cookie-jar" type="text">
+		<button onclick="setCustomCookie()">Set "messageTyped" cookie with the value you typed</button>
+		<br><br>
+		<button onclick="eatCookie(1)">Remove cookie1</button>
+		<button onclick="eatCookie(2)">Remove "messageTyped" cookie</button>
+		<br><br>
+		<button onclick="console.log(document.cookie)">Read me my cookies</button>
+		<button onclick="var output = document.getElementById('message-display'); output.innerHTML=getCookie('messageTyped');">Click to display the value of "messageTyped" cookie</button>
+		<p id="message-display"></p>
+	</div>
+	<footer>
+	  	<p>Proudly open-sourced by Elijah Mock • <a href="http://https://github.com/92Eli/">92Eli on GitHub</a> • <a href="http://92spoons.com">Linked site - 92spoons.com</a></p>
+		  <p>Be the reason someone smiles today.</p>
+  		<p>Last updated 11/12/19 (in theory) • Have patience, rennovation of this site in progress</p>
+	  	<p><a href="#">Back to top</a></p>
+  	</footer>
+	
+	<script>
+		var userInput = document.getElementById("cookie-jar");
+		function setPlainCookie() {
+			document.cookie = "text=Mmm; sameSite=strict; path=/";
+			console.log("Plain cookie [text=Mmm] set.");
+		}
+		function setFudgeCookie() {
+			var currDate = Date.now();
+			var minuteDate = currDate+60000; // add 60000 ms or 1 min
+			console.log("It is "+currDate+". Cookie will be eaten at "+minuteDate+".");
+			document.cookie = "message=Hope your day is sweet!; sameSite=strict; expires="+minuteDate+"; path=/";
+			console.log("Fudge cookie [message=Hope your day is sweet!] expires in 1 minute.");
+		}
+		function setCustomCookie() {
+			document.cookie = "messageTyped="+userInput.value+"; sameSite=strict; path=/";
+			console.log("Custom cookie set: messageTyped="+userInput.value);
+		}
+		function eatCookie(pass) {
+			if (pass === 1) {
+				document.cookie = "text=; expires=0; sameSite=strict; path=/"; // will expire when the browsing session ends-- no reoopening closed tab!
+			} else if (pass === 2) {
+				document.cookie = "messageTyped=; expires=0; sameSite=strict; path=/";
+			}
+			console.log("Cookie will expire when the browsing session ends.");
+		}
+		function getCookie(name) {
+			var identifier = name+"=";
+			var cookys = document.cookie.split(";");
+			for (var i = 0; i < cookys.length; i++) {
+				var cChar = cookys[i];
+				//console.log(i+" i:cChar "+cChar);
+				while (cChar.charAt(0)===" ") cChar = cChar.substring(1); // removes whitespace at beginning
+				if (cChar.indexOf(identifier) != -1) // if there IS the cookie name in there
+					return cChar.substring(identifier.length,cChar.length);
+			}
+			return null;
+		}
+		
+		// intro notice
+		window.addEventListener("load",function(){console.log("Sorry, you might have gotten a console error from the site I took the image of the cookie from.");});
+	</script>
+</body>
+</html>
