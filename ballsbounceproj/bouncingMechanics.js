@@ -22,6 +22,53 @@ function Ball(x, y, velX, velY, color, size) {
     this.color = color;
     this.size = size;
 }
+function Vector(x, y, z) {
+  this.x = x || 0;
+  this.y = y || 0;
+}
+Vector.prototype = {
+  negative: function() {
+    return new Vector(-this.x, -this.y);
+  },
+  add: function(v) {
+    if (v instanceof Vector) return new Vector(this.x + v.x, this.y + v.y);
+    else return new Vector(this.x + v, this.y + v);
+  },
+  subtract: function(v) {
+    if (v instanceof Vector) return new Vector(this.x - v.x, this.y - v.y);
+    else return new Vector(this.x - v, this.y - v);
+  },
+  multiply: function(v) {
+    if (v instanceof Vector) return new Vector(this.x * v.x, this.y * v.y);
+    else return new Vector(this.x * v, this.y * v);
+  },
+  divide: function(v) {
+    if (v instanceof Vector) return new Vector(this.x / v.x, this.y / v.y);
+    else return new Vector(this.x / v, this.y / v);
+  },
+  equals: function(v) {
+    return this.x == v.x && this.y == v.y;
+  },
+  dot: function(v) {
+    return this.x * v.x + this.y * v.y;
+  },
+  length: function() {
+    return Math.sqrt(this.dot(this));
+  },
+  unit: function() {
+    return this.divide(this.length());
+  },
+  toArray: function(n) {
+    return [this.x, this.y].slice(0, n || 2);
+  },
+  clone: function() {
+    return new Vector(this.x, this.y);
+  },
+  init: function(x, y) {
+    this.x = x; this.y = y;
+    return this;
+  }
+};
 Ball.prototype.draw = function() {
     ctx.beginPath();
     ctx.fillStyle = this.color;
@@ -68,10 +115,35 @@ Ball.prototype.ballCollisionDetect = function() { // check for ball collisions
                         this.velY = balls[i].velY;
                         balls[i].velX = hold1;
                         balls[i].velY = hold2;*/ //not keeping these settings because they are buggier
-                        this.velX = -(this.velX);
-                        this.velY = -(this.velY);
+                        //this.velX = -(this.velX);
+                        //this.velY = -(this.velY);
                         //balls[i].velX = -(balls[i].velX);
                         //balls[i].velY = - (balls[i].velY);
+                        //using vectors because then angles don't break everything
+                        ball1 = this;
+                        ball2 = balls[i];
+                        ball1pos = new Vector(ball1.x,ball1.y);
+                        ball2pos = new Vector(ball2.x,ball2.y);
+                        ball1vel = new Vector(ball1.velX,ball1.velY);
+                        ball2vel = new Vector(ball2.velX,ball2.velY);
+                        normal = ball2pos.subtract(ball1pos);
+                        unitnormal = normal.unit();
+                        unittangent = unitnormal.multiply(Vector(-1,1));
+                        ball1nor = unitnormal.dot(ball1vel);
+                        ball1tan = unittangent.dot(ball1vel); //same as end
+                        ball2nor = unitnormal.dot(ball2vel);
+                        ball2tan = unittangent.dot(ball2vel); //same as end
+                        ball1after = (ball1nor * (ball1.size - ball2.size) + ball2nor * (2*ball2.size)) / (ball1.size + ball2.size);
+                        ball2after = (ball2nor * (ball2.size - ball1.size) + ball1nor * (2*ball1.size)) / (ball2.size + ball1.size);
+                        ball1final = (unitnormal.multiply(ball1after).add(unittangent.multiply(ball1tan))).toArray();
+                        ball2final = (unitnormal.multiply(ball2after).add(unittangent.multiply(ball2tan))).toArray();
+                        console.log(ball1final);
+                        console.log(ball2final);
+                        this.velX = ball1final[0];
+                        this.velY = ball1final[1];
+                        balls[i].velX = ball2final[0];
+                        balls[i].velY = ball2final[1];
+
                         break;
                     default:
                         console.error(new Error("ballCollisionType is unknown value. Resetting to 0..."));
@@ -114,7 +186,7 @@ function setUrlData() {
 }
 function loadUrlData() {
     // not going to use URLSearchParams this time
-    let searchData = location.search.slice(1); // cut the '?' off the search 
+    let searchData = location.search.slice(1); // cut the '?' off the search
     searchData = searchData.split("#")[0]; // cut off stuff after # if there is any (there shouldn't)
     searchData = searchData.split("&"); // spit on & connector
     for (let i = 0; i < searchData.length; i++) {
@@ -184,7 +256,7 @@ function loop() {
          * make wallCollisionDetect(), ballCollDet(), and UICollDet() switch a wallCollision/ballColl/UIColl var true/false
          * Make the updateBalls function update the ball's velocity based on velocity changes from wallCollision/ballColl/UIColl
          * Make updateBalls move the ball and do any other editing if needed (color change, )
-         * 
+         *
          * Maybe make a new ballCollision mode: split
          */
     } // IDKY but they sometimes get stuck on walls
